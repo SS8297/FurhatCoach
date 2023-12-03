@@ -12,6 +12,15 @@ class OpenaichatSkill : Skill() {
 }
 
 fun main(args: Array<String>) {
+    // run python(3) script.py before running this
+    // TODO: run the script from here
     LogisticMultiIntentClassifier.setAsDefault()
+    val emotionDetector = EmotionDetector()
+    val currentEmotion = emotionDetector.getEmotion()
+    println("Detected Emotion: $currentEmotion")
+    // call function to retrieve state based on emotion
+    // e.g "happy" -> happyState
+    //     "sad"   -> sadState
+
     Skill.main(args)
 }

@@ -11,10 +11,8 @@ import furhatos.flow.kotlin.users
 
 val Init: State = state() {
     init {
-        /** Set our default interaction parameters */
         users.setSimpleEngagementPolicy(distanceToEngage, maxNumberOfUsers)
 
-        /** Check API key for the OpenAI GPT3 language model has been set */
         if (serviceKey.isEmpty()) {
             println("Missing API key for OpenAI GPT3 language model. ")
             exit()

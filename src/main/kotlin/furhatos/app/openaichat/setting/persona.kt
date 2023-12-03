@@ -1,6 +1,6 @@
 package furhatos.app.openaichat.setting
 
-import furhatos.app.openaichat.flow.chatbot.OpenAIChatbot
+import furhatos.app.openaichat.flow.chatbot.OpenAI
 import furhatos.flow.kotlin.FlowControlRunner
 import furhatos.flow.kotlin.furhat
 import furhatos.flow.kotlin.voice.AcapelaVoice
@@ -23,7 +23,7 @@ class Persona(
 
     /** The prompt for the openAI language model **/
     val chatbot =
-        OpenAIChatbot("The following is a conversation between $name, the $desc, and a Person", "Person", name)
+        OpenAI("The following is a conversation between $name, the $desc, and a Person", "Person", name)
 }
 
 fun FlowControlRunner.activate(persona: Persona) {
