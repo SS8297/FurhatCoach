@@ -1,16 +1,17 @@
 package furhatos.app.openaichat.flow.chatbot
 
-import com.theokanning.openai.OpenAiService
 import com.theokanning.openai.completion.CompletionRequest
+import com.theokanning.openai.service.OpenAiService
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
 /** API Key to GPT3 language model. Get access to the API and genereate your key from: https://openai.com/api/ **/
-val serviceKey = ""
+val serviceKey = "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"
 
 class OpenAIChatbot(val description: String, val userName: String, val agentName: String) {
 
-    val service = OpenAiService(serviceKey)
+    var service = OpenAiService(serviceKey)
+
 
     // Read more about these settings: https://beta.openai.com/docs/introduction
     var temperature = 0.9 // Higher values means the model will take more risks. Try 0.9 for more creative applications, and 0 (argmax sampling) for ones with a well-defined answer.
