@@ -1,12 +1,12 @@
 package furhatos.app.openaichat.flow.chatbot
 
-import com.theokanning.openai.OpenAiService
+import com.theokanning.openai.service.OpenAiService
 import com.theokanning.openai.completion.CompletionRequest
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
 /** API Key to GPT3 language model. Get access to the API and genereate your key from: https://openai.com/api/ **/
-val serviceKey = ""
+val serviceKey = "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"
 
 class OpenAIChatbot(val description: String, val userName: String, val agentName: String) {
 
