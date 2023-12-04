@@ -19,8 +19,8 @@ fun main(args: Array<String>) {
     val currentEmotion = emotionDetector.getEmotion()
     println("Detected Emotion: $currentEmotion")
     // call function to retrieve state based on emotion
-    // e.g "happy" -> happyState
-    //     "sad"   -> sadState
+    // e.g "patient has closed eyes" -> closedEyesState
+    //     "patient is sad"   -> sadState
 
     Skill.main(args)
 }

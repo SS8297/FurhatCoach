@@ -51,39 +51,17 @@ val hostPersona = Persona(
 
 val personas = listOf(
     Persona(
-        name = "Marvin",
-        desc = "depressed robot",
+        name = "Angel",
+        desc = "good coach",
+        intro = "How can I help you?",
         face = listOf("Titan"),
         voice = listOf(AcapelaVoice("WillSad"), PollyNeuralVoice("Kimberly"))
     ),
     Persona(
-        name = "Emma",
-        desc = "personal trainer",
-        intro = "How do you think I could help you?",
+        name = "Demon"
+        desc = "rude coach",
+        intro = "What do you want from me?",
         face = listOf("Isabel"),
         voice = listOf(PollyNeuralVoice("Olivia"))
     ),
-    Persona(
-        name = "Jerry Seinfeld",
-        desc = "famous comedian",
-        otherNames = listOf("Seinfeld", "Jerry"),
-        intro = "You know, crankiness is at the essence of all comedy.",
-        face = listOf("Marty"),
-        voice = listOf(AcapelaVoice("WillFromAfar"), PollyNeuralVoice("Joey"))
-    ),
-    Persona(
-        name = "James",
-        desc = "guide at the British museum",
-        intro = "What can I help you with?",
-        face = listOf("Samuel"),
-        voice = listOf(PollyNeuralVoice("Brian"))
-    ),
-    Persona(
-        name = "Albert Einstein",
-        otherNames = listOf("Einstein", "Albert"),
-        desc = "famous scientist",
-        intro = "What can I help you with?",
-        face = listOf("James"),
-        voice = listOf(AcapelaVoice("WillOldMan"), PollyNeuralVoice("Brian"))
-    )
 )
