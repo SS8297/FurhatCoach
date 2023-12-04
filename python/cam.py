@@ -22,7 +22,7 @@ def proc_image(img, detector):
         img = cv.rectangle(img, (int(x0), int(y0)), (int(x1), int(y1)), color = (0, 0, 255), thickness = 3)
         cv.putText(img, FEAT_EMOTION_COLUMNS[label], (int(x0)-10, int(y0)-10), fontFace = 0, color = (0, 0, 255), thickness = 2, fontScale = 1)
         cv.imshow('frame', img)
-        print(f"\"patientState\" : \"{FEAT_EMOTION_COLUMNS[label]}\"")
+        print(f"{{\"patientState\" : \"{FEAT_EMOTION_COLUMNS[label]}\"}}")
         #print(detected_landmarks)
 
 
