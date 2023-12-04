@@ -51,19 +51,18 @@ fun ChoosePersona() = state(Parent) {
     }
 
     onReentry {
-        furhat.ask("Who would you like to talk to?")
+        furhat.ask("Would you like the kind coach or the evil coach for your mindfulness session?")
     }
 
-    onResponse("can you present them again", "could you repeat") {
-        presentPersonas()
+    onResponse("kind coach", "angel") {
+        furhat.say("Okay, let's proceed with the kind coach.")
+        currentPersona = personas.find { it.name == "Angel" } ?: hostPersona
+        goto(MainChat)
     }
 
-    for (persona in personas) {
-        onResponse(persona.intent) {
-            furhat.say("Okay, I will let you talk to ${persona.name}.")
-            furhat.say("When you want to end the conversation, just say goodbye.")
-            currentPersona = persona
-            goto(MainChat)
-        }
+    onResponse("evil coach", "demon") {
+        furhat.say("Okay, let's proceed with the evil coach.")
+        currentPersona = personas.find { it.name == "Demon" } ?: hostPersona
+        goto(MainChat)
     }
 }

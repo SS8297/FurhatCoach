@@ -36,10 +36,8 @@ val MainChat = state(Parent) {
     }
 
     onResponse {
-        furhat.gesture(GazeAversion(2.0))
-        val response = call {
-            currentPersona.chatbot.getNextResponse()
-        } as String
+        val patientState = EmotionDetector().getEmotion()
+        val response = currentPersona.chatbot.getResponseForPatientState(patientState, currentPersona)
         furhat.say(response)
         reentry()
     }

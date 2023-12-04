@@ -10,6 +10,10 @@ class EmotionDetector {
     private val _port = 9999
     private val timeout = 5000
 
+    enum class PatientState {
+        ANGRY, DISGUST, FEAR, HAPPY, SAD, SURPRISE, NEUTRAL, EYES_CLOSED, EYES_OPENED
+    }
+
     fun getEmotion(): String {
         var response = ""
 
@@ -36,6 +40,7 @@ class EmotionDetector {
             e.printStackTrace()
             return "Error: ${e.message}"
         }
-        return response  // The response from the Python script
+        val jsonResponse = JSONObject(response)
+        return jsonResponse.getString("patientState")
     }
 }
