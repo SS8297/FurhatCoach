@@ -2,10 +2,11 @@ package furhatos.app.openaichat.flow.chatbot
 
 import com.theokanning.openai.completion.CompletionRequest
 import com.theokanning.openai.service.OpenAiService
+import furhatos.app.openaichat.setting.Persona
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
-val serviceKey = "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"
+val serviceKey = "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"
 
 class OpenAI(val description: String, val userName: String, val agentName: String) {
 
@@ -66,6 +67,7 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
     }
 
     private fun generateKindCoachPrompt(state: String): String {
+        println("In kind coach state: $state")
         return when (state) {
             "ANGRY" -> "The patient is angry. Provide a comforting response to help calm them down."
             "DISGUST" -> "The patient feels disgusted. Offer a reassuring comment to help them cope."
@@ -112,6 +114,7 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
 
         try {
             val completion = service.createCompletion(completionRequest)
+            println(completion)
             return completion.getChoices().first().text.trim()
         } catch (e: Exception) {
             println("Problem with connection to OpenAI: " + e.message)

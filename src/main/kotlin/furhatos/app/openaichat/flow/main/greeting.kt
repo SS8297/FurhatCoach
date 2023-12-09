@@ -2,6 +2,7 @@ package furhatos.app.openaichat.flow
 
 import furhatos.app.openaichat.flow.chatbot.MainChat
 import furhatos.app.openaichat.setting.Persona
+import furhatos.app.openaichat.setting.activate
 import furhatos.app.openaichat.setting.hostPersona
 import furhatos.app.openaichat.setting.personas
 import furhatos.flow.kotlin.*
@@ -37,7 +38,7 @@ fun ChoosePersona() = state(Parent) {
     fun FlowControlRunner.presentPersonas() {
         furhat.say("You can choose to speak to one of these characters:")
         for (persona in selectedPersonas) {
-            //activate(persona)
+            activate(persona)
             delay(300)
             furhat.say(persona.fullDesc)
             delay(300)

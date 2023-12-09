@@ -1,5 +1,6 @@
 package furhatos.app.openaichat.flow.chatbot
 
+import furhatos.app.openaichat.EmotionDetector
 import furhatos.app.openaichat.flow.*
 import furhatos.app.openaichat.setting.activate
 import furhatos.app.openaichat.setting.hostPersona
@@ -37,6 +38,7 @@ val MainChat = state(Parent) {
 
     onResponse {
         val patientState = EmotionDetector().getEmotion()
+        println(patientState)
         val response = currentPersona.chatbot.getResponseForPatientState(patientState, currentPersona)
         furhat.say(response)
         reentry()

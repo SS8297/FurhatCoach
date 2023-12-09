@@ -53,14 +53,14 @@ val personas = listOf(
     Persona(
         name = "Angel",
         desc = "good coach",
-        intro = "How can I help you?",
+        intro = "As we begin, gently close your eyes and let the quiet settle within. Embrace this moment of stillness",
         face = listOf("Titan"),
         voice = listOf(AcapelaVoice("WillSad"), PollyNeuralVoice("Kimberly"))
     ),
     Persona(
-        name = "Demon"
+        name = "Demon",
         desc = "rude coach",
-        intro = "What do you want from me?",
+        intro = "Eyes shut. Drop the noise. Breath in. Out. Cut the drama. Just be. Mindfulness, not a game. Yeah, whatever. Focus.",
         face = listOf("Isabel"),
         voice = listOf(PollyNeuralVoice("Olivia"))
     ),

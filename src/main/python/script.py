@@ -25,11 +25,11 @@ while True:
                     break
 
                 emotion = detect_emotion()
-                response = json.dumps({'emotion': emotion})
+                response = json.dumps({'patientState': emotion})
                 print("Sending response:", response)
                 conn.sendall(response.encode('utf-8') + b"\n")
                 conn.flush()
         finally:
             conn.close()
     except Exception as e:
-        print(f"Error: {e}")  # Log any exceptions
+        print(f"Error: {e}")

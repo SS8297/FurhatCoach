@@ -5,14 +5,13 @@ import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.io.PrintWriter
 import java.net.InetSocketAddress
+import com.google.gson.JsonParser
+import java.util.*
+
 class EmotionDetector {
     private val host = "localhost"
     private val _port = 9999
     private val timeout = 5000
-
-    enum class PatientState {
-        ANGRY, DISGUST, FEAR, HAPPY, SAD, SURPRISE, NEUTRAL, EYES_CLOSED, EYES_OPENED
-    }
 
     fun getEmotion(): String {
         var response = ""
@@ -40,7 +39,8 @@ class EmotionDetector {
             e.printStackTrace()
             return "Error: ${e.message}"
         }
-        val jsonResponse = JSONObject(response)
-        return jsonResponse.getString("patientState")
+        val jsonResponse = JsonParser.parseString(response).asJsonObject
+        val state = jsonResponse.get("patientState").asString
+        return state.uppercase(Locale.getDefault())
     }
 }
