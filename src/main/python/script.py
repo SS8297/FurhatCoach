@@ -1,5 +1,6 @@
 import socket
 import json
+import time
 # Import OpenCV, PyFeat, and other necessary libraries here
 
 # Set up a socket server to communicate with the Kotlin application
@@ -8,11 +9,25 @@ server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
 server.listen(1)
 
+# Emotion cache and timestamp
+last_emotion = None
+last_time = 0
 # Emotion detection function (to be implemented)
 def detect_emotion():
-    # Capture video, analyze with OpenCV and PyFeat, return detected emotion
-    # This is a placeholder for the actual emotion detection logic
-    return "happy"  # example emotion
+    global last_emotion, last_time
+    current_time = time.time()
+
+    # Check if the last emotion was detected less than 10 seconds ago
+    if last_emotion and current_time - last_time < 10:
+        return last_emotion
+
+    # Your emotion detection logic
+    emotion = "happy"  # Replace with actual emotion detection
+
+    # Update cache
+    last_emotion = emotion
+    last_time = current_time
+    return emotion
 
 while True:
     try:

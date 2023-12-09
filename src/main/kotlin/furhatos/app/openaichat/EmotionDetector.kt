@@ -12,6 +12,7 @@ class EmotionDetector {
     private val host = "localhost"
     private val _port = 9999
     private val timeout = 5000
+    private var lastEmotion: String? = null
 
     fun getEmotion(): String {
         var response = ""
@@ -41,6 +42,12 @@ class EmotionDetector {
         }
         val jsonResponse = JsonParser.parseString(response).asJsonObject
         val state = jsonResponse.get("patientState").asString
+        // Check if the emotion has changed
+        if (state.equals(lastEmotion, ignoreCase = true)) {
+            println("Same emotion as before, no API call needed")
+            return state
+        }
+        lastEmotion = state
         return state.uppercase(Locale.getDefault())
     }
 }
