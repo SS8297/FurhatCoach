@@ -2,15 +2,17 @@ package furhatos.app.openaichat.flow.chatbot
 
 import com.theokanning.openai.completion.CompletionRequest
 import com.theokanning.openai.service.OpenAiService
+import furhatos.app.openaichat.ResponseCache
 import furhatos.app.openaichat.setting.Persona
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
-val serviceKey = "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"
+val serviceKey = "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"
 
 class OpenAI(val description: String, val userName: String, val agentName: String) {
 
-    var service = OpenAiService(serviceKey)
+    private var service = OpenAiService(serviceKey)
+    private val responseCache = ResponseCache()
 
     var temperature = 0.9 // Higher values means the model will take more risks. Try 0.9 for more creative applications, and 0 (argmax sampling) for ones with a well-defined answer.
     var maxTokens = 50 // Length of output generated. 1 token is on average ~4 characters or 0.75 words for English text
@@ -58,17 +60,34 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
     }
 
     fun getResponseForPatientState(patientState: String, persona: Persona): String {
+
+        val dialogContext = Furhat.dialogHistory.all.takeLast(10).mapNotNull {
+            when (it) {
+                is DialogHistory.ResponseItem -> "$userName: ${it.response.text}"
+                is DialogHistory.UtteranceItem -> "$agentName: ${it.toText()}"
+                else -> null
+            }
+        }.joinToString("\n")
+
         val prompt = when (persona.name) {
-            "Angel" -> generateKindCoachPrompt(patientState)
-            "Demon" -> generateEvilCoachPrompt(patientState)
+            "Angel" -> generateKindCoachPrompt(patientState, dialogContext)
+            "Demon" -> generateEvilCoachPrompt(patientState, dialogContext)
             else -> "How can I assist you?"
         }
-        return generateCompletion(prompt)
+
+        responseCache.getCachedResponse(patientState, persona)?.let { cachedResponse ->
+            println("Retrieved response from cache")
+            return cachedResponse
+        }
+
+        val response = generateCompletion(prompt)
+        responseCache.putResponseInCache(patientState, persona, response)
+        return response
     }
 
-    private fun generateKindCoachPrompt(state: String): String {
+    private fun generateKindCoachPrompt(state: String, dialogContext: String): String {
         println("In kind coach state: $state")
-        return when (state) {
+        val statePrompt = when (state) {
             "ANGRY" -> "The patient is angry. Provide a comforting response to help calm them down."
             "DISGUST" -> "The patient feels disgusted. Offer a reassuring comment to help them cope."
             "FEAR" -> "The patient is scared. Generate a supportive response to alleviate their fear."
@@ -80,10 +99,12 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
             "EYES_OPENED" -> "The patient's eyes are open during meditation. Offer a kind nudge to close their eyes."
             else -> "The patient is in an unknown state. Say something kind"
         }
+
+        return "$statePrompt\n\n$dialogContext"
     }
 
-    private fun generateEvilCoachPrompt(state: String): String {
-        return when (state) {
+    private fun generateEvilCoachPrompt(state: String, dialogContext: String): String {
+        val statePrompt = when (state) {
             "ANGRY" -> "The patient is angry. Make a provocative comment to challenge their anger."
             "DISGUST" -> "The patient feels disgusted. Respond with a blunt statement to confront their feeling."
             "FEAR" -> "The patient is scared. Write a response that starkly addresses their fear."
@@ -95,6 +116,7 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
             "EYES_OPENED" -> "The patient's eyes are open during meditation. Respond with a sarcastic remark about their lack of focus."
             else -> "The patient is in an unknown state. Say something mean"
         }
+        return "$statePrompt\n\n$dialogContext"
     }
 
 

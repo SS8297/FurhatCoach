@@ -13,17 +13,17 @@ val Greeting = state(Parent) {
     onEntry {
         furhat.attend(users.userClosestToPosition(Location(0.0, 0.0, 0.5)))
         askForAnything("Hi there")
-        furhat.say("I was recently introduced to the A I GPT3 from open A I.")
-        if (furhat.askYN("Have you heard about GPT3?") == true) {
-            furhat.say("Good, let's try it out")
-        } else {
-            furhat.say("GPT3 is a so-called language model, developed by OpenAI. It can be used to generate any text, for example a conversation, based on the description of a character. ")
-            if (furhat.askYN("Are you ready to try it out?") == true) {
-            } else {
-                furhat.say("Okay, maybe another time then")
-                goto(Idle)
-            }
-        }
+        //furhat.say("I was recently introduced to the A I GPT3 from open A I.")
+        //if (furhat.askYN("Have you heard about GPT3?") == true) {
+        //    furhat.say("Good, let's try it out")
+        //} else {
+        //    furhat.say("GPT3 is a so-called language model, developed by OpenAI. It can be used to generate any text, for example a conversation, based on the description of a character. ")
+        //    if (furhat.askYN("Are you ready to try it out?") == true) {
+        //    } else {
+        //        furhat.say("Okay, maybe another time then")
+        //        goto(Idle)
+        //    }
+        //}
         goto(ChoosePersona())
     }
 }
