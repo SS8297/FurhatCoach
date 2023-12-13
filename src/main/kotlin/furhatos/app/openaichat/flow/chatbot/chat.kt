@@ -40,6 +40,7 @@ val MainChat = state(Parent) {
         val patientState = EmotionDetector().getEmotion()
         println(patientState)
         val response = currentPersona.chatbot.getResponseForPatientState(patientState, currentPersona)
+        println(response)
         furhat.say(response)
         reentry()
     }

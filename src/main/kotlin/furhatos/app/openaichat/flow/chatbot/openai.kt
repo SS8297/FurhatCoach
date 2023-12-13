@@ -7,7 +7,7 @@ import furhatos.app.openaichat.setting.Persona
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
-val serviceKey = "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"
+val serviceKey = "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"
 
 class OpenAI(val description: String, val userName: String, val agentName: String) {
 
@@ -64,7 +64,7 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
         val dialogContext = Furhat.dialogHistory.all.takeLast(10).mapNotNull {
             when (it) {
                 is DialogHistory.ResponseItem -> "$userName: ${it.response.text}"
-                is DialogHistory.UtteranceItem -> "$agentName: ${it.toText()}"
+                is DialogHistory.UtteranceItem -> it.toText()
                 else -> null
             }
         }.joinToString("\n")
@@ -80,7 +80,12 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
             return cachedResponse
         }
 
+        println("-----")
+        println(dialogContext)
+        println("-----")
+
         val response = generateCompletion(prompt)
+        println("Generated response: $response")
         responseCache.putResponseInCache(patientState, persona, response)
         return response
     }
@@ -136,8 +141,18 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
 
         try {
             val completion = service.createCompletion(completionRequest)
-            println(completion)
-            return completion.getChoices().first().text.trim()
+            var response = completion.getChoices().first().text.trim()
+
+            if (response.isBlank()) {
+                return "I'm here to listen. Tell me more about how you're feeling."
+            }
+            if (response.startsWith("$agentName:")) {
+                response = response.removePrefix("$agentName:")
+                response.trim() // Trim again to remove any leading whitespace
+            }
+
+            return response
+
         } catch (e: Exception) {
             println("Problem with connection to OpenAI: " + e.message)
             return "I am not sure what to say"

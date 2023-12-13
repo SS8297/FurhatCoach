@@ -10,24 +10,26 @@ server.bind((HOST, PORT))
 server.listen(1)
 
 # Emotion cache and timestamp
-last_emotion = None
+last_emotion_index = -1
 last_time = 0
+
+emotions = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral", "eyes_opened", "eyes_closed"]
 # Emotion detection function (to be implemented)
 def detect_emotion():
-    global last_emotion, last_time
+    global last_emotion_index, last_time, emotions
     current_time = time.time()
 
     # Check if the last emotion was detected less than 10 seconds ago
-    if last_emotion and current_time - last_time < 10:
-        return last_emotion
+    if current_time - last_time < 10:
+        return emotions[last_emotion_index]
 
-    # Your emotion detection logic
-    emotion = "happy"  # Replace with actual emotion detection
+    # Move to the next emotion in the list, cycling back to the start if necessary
+    last_emotion_index = (last_emotion_index + 1) % len(emotions)
+    emotion = emotions[last_emotion_index]
 
-    # Update cache
-    last_emotion = emotion
     last_time = current_time
     return emotion
+
 
 while True:
     try:

@@ -31,14 +31,19 @@ val Greeting = state(Parent) {
 var currentPersona: Persona = hostPersona
 
 fun ChoosePersona() = state(Parent) {
+    for (persona in personas) {
+        println("${persona.name} voice available: ${persona.voice.first().isAvailable}")
+    }
 
     val personasWithAvailableVoice = personas.filter { it.voice.first().isAvailable }
     val selectedPersonas = personasWithAvailableVoice.take(3)
 
+    println("Selected Personas after filter: ${selectedPersonas.map { it.name }}")
+
     fun FlowControlRunner.presentPersonas() {
         furhat.say("You can choose to speak to one of these characters:")
         for (persona in selectedPersonas) {
-            activate(persona)
+            //activate(persona)
             delay(300)
             furhat.say(persona.fullDesc)
             delay(300)

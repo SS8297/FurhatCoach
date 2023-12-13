@@ -55,7 +55,7 @@ val personas = listOf(
         desc = "good coach",
         intro = "As we begin, gently close your eyes and let the quiet settle within. Embrace this moment of stillness",
         face = listOf("Titan"),
-        voice = listOf(AcapelaVoice("WillSad"), PollyNeuralVoice("Kimberly"))
+        voice = listOf(PollyNeuralVoice("Kimberly"))
     ),
     Persona(
         name = "Demon",
