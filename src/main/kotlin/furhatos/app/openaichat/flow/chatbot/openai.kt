@@ -84,7 +84,7 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
         println(dialogContext)
         println("-----")
 
-        val response = generateCompletion(prompt)
+        val response = generateCompletion(prompt, persona)
         println("Generated response: $response")
         responseCache.putResponseInCache(patientState, persona, response)
         return response
@@ -110,22 +110,22 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
 
     private fun generateEvilCoachPrompt(state: String, dialogContext: String): String {
         val statePrompt = when (state) {
-            "ANGRY" -> "The patient is angry. Make a provocative comment to challenge their anger."
-            "DISGUST" -> "The patient feels disgusted. Respond with a blunt statement to confront their feeling."
-            "FEAR" -> "The patient is scared. Write a response that starkly addresses their fear."
-            "HAPPY" -> "The patient is happy. Give a sarcastic remark to downplay their happiness."
-            "SAD" -> "The patient is sad. Provide a tough-love type of response to snap them out of sadness."
-            "SURPRISE" -> "The patient is surprised. Offer a cynical comment about their surprise."
-            "NEUTRAL" -> "The patient is neutral. Make a dry remark to elicit a reaction."
-            "EYES_CLOSED" -> "The patient's eyes are closed. Say something to jolt them out of meditation."
-            "EYES_OPENED" -> "The patient's eyes are open during meditation. Respond with a sarcastic remark about their lack of focus."
-            else -> "The patient is in an unknown state. Say something mean"
+            "ANGRY" -> "The patient is feeling angry. Write a provocative response to fuel their anger."
+            "DISGUST" -> "The patient is expressing disgust. Provide a sharp, dismissive comment."
+            "FEAR" -> "The patient seems scared. Craft a response that is intimidating and exacerbates their fear."
+            "HAPPY" -> "The patient appears happy. Ask why they are faking it"
+            "SAD" -> "The patient is sad. Offer a cold, unsympathetic reply."
+            "SURPRISE" -> "The patient shows surprise. Give a snide remark that belittles their reaction."
+            "NEUTRAL" -> "The patient is neutral. Make a sarcastic comment to provoke a reaction."
+            "EYES_CLOSED" -> "The patient has their eyes closed. Say something unsettling to disturb their peace."
+            "EYES_OPENED" -> "The patient's eyes are open during meditation. Respond with a caustic remark about their lack of concentration."
+            else -> "The patient is in an unknown state. Respond with a general cutting remark."
         }
         return "$statePrompt\n\n$dialogContext"
     }
 
 
-    private fun generateCompletion(prompt: String): String {
+    private fun generateCompletion(prompt: String, persona: Persona): String {
         // Use existing GPT-3 call logic to generate a response
         val completionRequest = CompletionRequest.builder()
             .temperature(temperature)
@@ -143,12 +143,17 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
             val completion = service.createCompletion(completionRequest)
             var response = completion.getChoices().first().text.trim()
 
-            if (response.isBlank()) {
+            if (response.isBlank() && persona.name == "Demon") {
+                return "Stop thinking"
+            }
+            else if (response.isBlank() && persona.name == "Angel") {
                 return "I'm here to listen. Tell me more about how you're feeling."
             }
             if (response.startsWith("$agentName:")) {
-                response = response.removePrefix("$agentName:")
-                response.trim() // Trim again to remove any leading whitespace
+                response.removePrefix("$agentName:")
+                response.replace("!", "Stop whining.")
+                response.replace("?", "")
+                response.trim()
             }
 
             return response

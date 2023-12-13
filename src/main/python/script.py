@@ -20,7 +20,7 @@ def detect_emotion():
     current_time = time.time()
 
     # Check if the last emotion was detected less than 10 seconds ago
-    if current_time - last_time < 10:
+    if current_time - last_time < 5:
         return emotions[last_emotion_index]
 
     # Move to the next emotion in the list, cycling back to the start if necessary

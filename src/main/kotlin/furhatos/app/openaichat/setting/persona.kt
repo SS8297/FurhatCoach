@@ -45,8 +45,8 @@ fun FlowControlRunner.activate(persona: Persona) {
 val hostPersona = Persona(
     name = "Host",
     desc = "host",
-    face = listOf("Alex", "default"),
-    voice = listOf(PollyNeuralVoice("Matthew"))
+    face = listOf("Titan"),
+    voice = listOf(PollyNeuralVoice("Kimberly"))
 )
 
 val personas = listOf(
@@ -54,14 +54,15 @@ val personas = listOf(
         name = "Angel",
         desc = "good coach",
         intro = "As we begin, gently close your eyes and let the quiet settle within. Embrace this moment of stillness",
-        face = listOf("Titan"),
-        voice = listOf(PollyNeuralVoice("Kimberly"))
+        face = listOf("Isabel"),
+        voice = listOf(PollyNeuralVoice("Olivia"))
+
     ),
     Persona(
         name = "Demon",
         desc = "rude coach",
-        intro = "Eyes shut. Drop the noise. Breath in. Out. Cut the drama. Just be. Mindfulness, not a game. Yeah, whatever. Focus.",
-        face = listOf("Isabel"),
-        voice = listOf(PollyNeuralVoice("Olivia"))
+        intro = "Cut the drama and close your eyes",
+        face = listOf("Alex", "default"),
+        voice = listOf(PollyNeuralVoice("Matthew"))
     ),
 )
