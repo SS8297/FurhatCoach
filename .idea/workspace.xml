@@ -4,24 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cce61133-3036-47ae-8407-7676846b581d" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/python/python.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/python/script.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/python/test_connection.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="cce61133-3036-47ae-8407-7676846b581d" name="Changes" comment="fixes script and response for caching">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/chatbot/openai.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/chatbot/openai.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/init.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/init.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/setting/persona.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/setting/persona.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/python/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/script.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,8 +38,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Kotlin Class" />
         <option value="Python Script" />
+        <option value="Kotlin Class" />
       </list>
     </option>
   </component>
@@ -70,20 +57,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "git-widget-placeholder": "master",
-    "jdk.selected.JAVA_MODULE": "11",
-    "last_opened_file_path": "/home/kianrafi/Documents/FurhatCoach/src/main/python/script.py",
-    "project.structure.last.edited": "SDKs",
-    "project.structure.proportion": "0.15",
-    "project.structure.side.proportion": "0.2",
-    "settings.editor.selected.configurable": "configurable.group.build"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Gradle.Build FurhatCoach.executor&quot;: &quot;Run&quot;,
+    &quot;Kotlin.MainKt.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;patientStates&quot;,
+    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/kianrafi/Documents/FurhatCoach/src/main/python/script.py&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/main/python" />
@@ -126,6 +116,13 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="jdk-11.0.21-corretto-11.0.21-8336523bb0d9-3a399477" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -135,23 +132,38 @@
       <option name="presentableId" value="Default" />
       <updated>1701608123050</updated>
     </task>
+    <task id="LOCAL-00001" summary="Adds logic for evil/kind coach integrating with OpenAI">
+      <option name="closed" value="true" />
+      <created>1701724461455</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1701724461455</updated>
+    </task>
+    <task id="LOCAL-00002" summary="caching and state management to optimize API call efficiency">
+      <option name="closed" value="true" />
+      <created>1702115631656</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1702115631656</updated>
+    </task>
+    <task id="LOCAL-00003" summary="fixes script and response for caching">
+      <option name="closed" value="true" />
+      <created>1702481950267</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1702481950267</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt</url>
-          <line>19</line>
-          <option name="timeStamp" value="3" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="kotlin-line">
-          <url>file://$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt</url>
-          <line>18</line>
-          <option name="timeStamp" value="4" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Adds logic for evil/kind coach integrating with OpenAI" />
+    <MESSAGE value="caching and state management to optimize API call efficiency" />
+    <MESSAGE value="fixes script and response for caching" />
+    <option name="LAST_COMMIT_MESSAGE" value="fixes script and response for caching" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

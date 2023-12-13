@@ -1,5 +1,6 @@
 package furhatos.app.openaichat.flow.chatbot
 
+import furhatos.app.openaichat.EmotionDetector
 import furhatos.app.openaichat.flow.*
 import furhatos.app.openaichat.setting.activate
 import furhatos.app.openaichat.setting.hostPersona
@@ -36,10 +37,10 @@ val MainChat = state(Parent) {
     }
 
     onResponse {
-        furhat.gesture(GazeAversion(2.0))
-        val response = call {
-            currentPersona.chatbot.getNextResponse()
-        } as String
+        val patientState = EmotionDetector().getEmotion()
+        println(patientState)
+        val response = currentPersona.chatbot.getResponseForPatientState(patientState, currentPersona)
+        println(response)
         furhat.say(response)
         reentry()
     }

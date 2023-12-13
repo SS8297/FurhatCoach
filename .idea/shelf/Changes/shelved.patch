@@ -1,0 +1,101 @@
+Index: src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package furhatos.app.openaichat\n\nimport java.net.Socket\nimport java.io.BufferedReader\nimport java.io.InputStreamReader\nimport java.io.PrintWriter\nimport java.net.InetSocketAddress\nclass EmotionDetector {\n    private val host = \"localhost\"\n    private val _port = 9999\n    private val timeout = 5000\n\n    fun getEmotion(): String {\n        var response = \"\"\n\n        try {\n            println(\"Attempting to connect to the server...\")\n            Socket().apply {\n                connect(InetSocketAddress(host, _port), timeout)\n                println(\"Connected to the server.\")\n                getOutputStream().use { output ->\n                    PrintWriter(output, true).use { out ->\n                        getInputStream().use { input ->\n                            BufferedReader(InputStreamReader(input)).use { reader ->\n                                println(\"Sending request to the server...\")\n                                out.println(\"Request emotion\")\n                                println(\"Awaiting response from the server...\")\n                                response = reader.readLine() ?: \"No response received\"\n                                println(\"Response received: $response\")\n                            }\n                        }\n                    }\n                }\n            }\n        } catch (e: Exception) {\n            e.printStackTrace()\n            return \"Error: ${e.message}\"\n        }\n        return response  // The response from the Python script\n    }\n}\n
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt b/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt
+--- a/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt	(revision 766b6d83c37b2897b03c7b1d002514f1c3af5f98)
++++ b/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt	(date 1701705933026)
+@@ -10,6 +10,10 @@
+     private val _port = 9999
+     private val timeout = 5000
+ 
++    enum class PatientState {
++        ANGRY, DISGUST, FEAR, HAPPY, SAD, SURPRISE, NEUTRAL, EYES_CLOSED, EYES_OPENED
++    }
++
+     fun getEmotion(): String {
+         var response = ""
+ 
+@@ -36,6 +40,9 @@
+             e.printStackTrace()
+             return "Error: ${e.message}"
+         }
+-        return response  // The response from the Python script
++        return when (response) {
++            "happy" -> PatientState.HAPPY
++            "disgust" -> PatientState.
++        }
+     }
+ }
+Index: .idea/workspace.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<project version=\"4\">\n  <component name=\"AutoImportSettings\">\n    <option name=\"autoReloadType\" value=\"SELECTIVE\" />\n  </component>\n  <component name=\"ChangeListManager\">\n    <list default=\"true\" id=\"cce61133-3036-47ae-8407-7676846b581d\" name=\"Changes\" comment=\"\">\n      <change afterPath=\"$PROJECT_DIR$/.idea/modules.xml\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/.idea/vcs.xml\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/python/python.iml\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/python/script.py\" afterDir=\"false\" />\n      <change afterPath=\"$PROJECT_DIR$/src/main/python/test_connection.py\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.gradle/checksums/checksums.lock\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.gradle/checksums/checksums.lock\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/gradle.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/gradle.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/misc.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/misc.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/.idea/workspace.xml\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/.idea/workspace.xml\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/chatbot/openai.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/chatbot/openai.kt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/init.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/init.kt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt\" afterDir=\"false\" />\n      <change beforePath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/setting/persona.kt\" beforeDir=\"false\" afterPath=\"$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/setting/persona.kt\" afterDir=\"false\" />\n    </list>\n    <option name=\"SHOW_DIALOG\" value=\"false\" />\n    <option name=\"HIGHLIGHT_CONFLICTS\" value=\"true\" />\n    <option name=\"HIGHLIGHT_NON_ACTIVE_CHANGELIST\" value=\"false\" />\n    <option name=\"LAST_RESOLUTION\" value=\"IGNORE\" />\n  </component>\n  <component name=\"ExternalProjectsData\">\n    <projectState path=\"$PROJECT_DIR$\">\n      <ProjectState />\n    </projectState>\n  </component>\n  <component name=\"ExternalProjectsManager\">\n    <system id=\"GRADLE\">\n      <state>\n        <task path=\"$PROJECT_DIR$\">\n          <activation />\n        </task>\n        <projects_view>\n          <tree_state>\n            <expand />\n            <select />\n          </tree_state>\n        </projects_view>\n      </state>\n    </system>\n  </component>\n  <component name=\"FileTemplateManagerImpl\">\n    <option name=\"RECENT_TEMPLATES\">\n      <list>\n        <option value=\"Kotlin Class\" />\n        <option value=\"Python Script\" />\n      </list>\n    </option>\n  </component>\n  <component name=\"Git.Settings\">\n    <option name=\"RECENT_GIT_ROOT_PATH\" value=\"$PROJECT_DIR$\" />\n  </component>\n  <component name=\"MarkdownSettingsMigration\">\n    <option name=\"stateVersion\" value=\"1\" />\n  </component>\n  <component name=\"ProjectColorInfo\">{\n  &quot;associatedIndex&quot;: 0\n}</component>\n  <component name=\"ProjectId\" id=\"2Z273fbkbk1Bsnbo0tI3cCKQnoz\" />\n  <component name=\"ProjectViewState\">\n    <option name=\"hideEmptyMiddlePackages\" value=\"true\" />\n    <option name=\"showLibraryContents\" value=\"true\" />\n  </component>\n  <component name=\"PropertiesComponent\"><![CDATA[{\n  \"keyToString\": {\n    \"RunOnceActivity.OpenProjectViewOnStart\": \"true\",\n    \"RunOnceActivity.ShowReadmeOnStart\": \"true\",\n    \"SHARE_PROJECT_CONFIGURATION_FILES\": \"true\",\n    \"git-widget-placeholder\": \"master\",\n    \"jdk.selected.JAVA_MODULE\": \"11\",\n    \"last_opened_file_path\": \"/home/kianrafi/Documents/FurhatCoach/src/main/python/script.py\",\n    \"project.structure.last.edited\": \"SDKs\",\n    \"project.structure.proportion\": \"0.15\",\n    \"project.structure.side.proportion\": \"0.2\",\n    \"settings.editor.selected.configurable\": \"configurable.group.build\"\n  }\n}]]></component>\n  <component name=\"RecentsManager\">\n    <key name=\"MoveFile.RECENT_KEYS\">\n      <recent name=\"$PROJECT_DIR$/src/main/python\" />\n    </key>\n  </component>\n  <component name=\"RunManager\" selected=\"Kotlin.MainKt\">\n    <configuration name=\"FurhatCoach [dependencies]\" type=\"GradleRunConfiguration\" factoryName=\"Gradle\" temporary=\"true\">\n      <ExternalSystemSettings>\n        <option name=\"executionName\" />\n        <option name=\"externalProjectPath\" value=\"$PROJECT_DIR$\" />\n        <option name=\"externalSystemIdString\" value=\"GRADLE\" />\n        <option name=\"scriptParameters\" />\n        <option name=\"taskDescriptions\">\n          <list />\n        </option>\n        <option name=\"taskNames\">\n          <list>\n            <option value=\"dependencies\" />\n          </list>\n        </option>\n        <option name=\"vmOptions\" />\n      </ExternalSystemSettings>\n      <ExternalSystemDebugServerProcess>true</ExternalSystemDebugServerProcess>\n      <ExternalSystemReattachDebugProcess>true</ExternalSystemReattachDebugProcess>\n      <DebugAllEnabled>false</DebugAllEnabled>\n      <RunAsTest>false</RunAsTest>\n      <method v=\"2\" />\n    </configuration>\n    <configuration name=\"MainKt\" type=\"JetRunConfigurationType\" temporary=\"true\" nameIsGenerated=\"true\">\n      <option name=\"MAIN_CLASS_NAME\" value=\"furhatos.app.openaichat.MainKt\" />\n      <module name=\"FurhatCoach.main\" />\n      <method v=\"2\">\n        <option name=\"Make\" enabled=\"true\" />\n      </method>\n    </configuration>\n    <recent_temporary>\n      <list>\n        <item itemvalue=\"Kotlin.MainKt\" />\n        <item itemvalue=\"Gradle.FurhatCoach [dependencies]\" />\n      </list>\n    </recent_temporary>\n  </component>\n  <component name=\"SpellCheckerSettings\" RuntimeDictionaries=\"0\" Folders=\"0\" CustomDictionaries=\"0\" DefaultDictionary=\"application-level\" UseSingleDictionary=\"true\" transferred=\"true\" />\n  <component name=\"TaskManager\">\n    <task active=\"true\" id=\"Default\" summary=\"Default task\">\n      <changelist id=\"cce61133-3036-47ae-8407-7676846b581d\" name=\"Changes\" comment=\"\" />\n      <created>1701608123050</created>\n      <option name=\"number\" value=\"Default\" />\n      <option name=\"presentableId\" value=\"Default\" />\n      <updated>1701608123050</updated>\n    </task>\n    <servers />\n  </component>\n  <component name=\"XDebuggerManager\">\n    <breakpoint-manager>\n      <breakpoints>\n        <line-breakpoint enabled=\"true\" type=\"kotlin-line\">\n          <url>file://$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt</url>\n          <line>19</line>\n          <option name=\"timeStamp\" value=\"3\" />\n        </line-breakpoint>\n        <line-breakpoint enabled=\"true\" type=\"kotlin-line\">\n          <url>file://$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt</url>\n          <line>18</line>\n          <option name=\"timeStamp\" value=\"4\" />\n        </line-breakpoint>\n      </breakpoints>\n    </breakpoint-manager>\n  </component>\n  <component name=\"XSLT-Support.FileAssociations.UIState\">\n    <expand />\n    <select />\n  </component>\n</project>
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/.idea/workspace.xml b/.idea/workspace.xml
+--- a/.idea/workspace.xml	(revision 766b6d83c37b2897b03c7b1d002514f1c3af5f98)
++++ b/.idea/workspace.xml	(date 1701705933094)
+@@ -5,23 +5,8 @@
+   </component>
+   <component name="ChangeListManager">
+     <list default="true" id="cce61133-3036-47ae-8407-7676846b581d" name="Changes" comment="">
+-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/python/python.iml" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/python/script.py" afterDir="false" />
+-      <change afterPath="$PROJECT_DIR$/src/main/python/test_connection.py" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.lock" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.lock" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gradle.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/chatbot/openai.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/chatbot/openai.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/init.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/init.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/main.kt" afterDir="false" />
+-      <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/setting/persona.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/setting/persona.kt" afterDir="false" />
++      <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/EmotionDetector.kt" afterDir="false" />
+     </list>
+     <option name="SHOW_DIALOG" value="false" />
+     <option name="HIGHLIGHT_CONFLICTS" value="true" />
+@@ -70,20 +55,20 @@
+     <option name="hideEmptyMiddlePackages" value="true" />
+     <option name="showLibraryContents" value="true" />
+   </component>
+-  <component name="PropertiesComponent"><![CDATA[{
+-  "keyToString": {
+-    "RunOnceActivity.OpenProjectViewOnStart": "true",
+-    "RunOnceActivity.ShowReadmeOnStart": "true",
+-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+-    "git-widget-placeholder": "master",
+-    "jdk.selected.JAVA_MODULE": "11",
+-    "last_opened_file_path": "/home/kianrafi/Documents/FurhatCoach/src/main/python/script.py",
+-    "project.structure.last.edited": "SDKs",
+-    "project.structure.proportion": "0.15",
+-    "project.structure.side.proportion": "0.2",
+-    "settings.editor.selected.configurable": "configurable.group.build"
++  <component name="PropertiesComponent">{
++  &quot;keyToString&quot;: {
++    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
++    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
++    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
++    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
++    &quot;jdk.selected.JAVA_MODULE&quot;: &quot;11&quot;,
++    &quot;last_opened_file_path&quot;: &quot;/home/kianrafi/Documents/FurhatCoach/src/main/python/script.py&quot;,
++    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
++    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
++    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
++    &quot;settings.editor.selected.configurable&quot;: &quot;configurable.group.build&quot;
+   }
+-}]]></component>
++}</component>
+   <component name="RecentsManager">
+     <key name="MoveFile.RECENT_KEYS">
+       <recent name="$PROJECT_DIR$/src/main/python" />
