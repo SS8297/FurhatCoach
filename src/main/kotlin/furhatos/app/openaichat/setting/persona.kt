@@ -51,17 +51,17 @@ val hostPersona = Persona(
 
 val personas = listOf(
     Persona(
-        name = "Angel",
-        desc = "good coach",
-        intro = "As we begin, gently close your eyes and let the quiet settle within. Embrace this moment of stillness",
+        name = "Hanna",
+        desc = "kind terapeut",
+        intro = "Hello, how are you feeling today?",
         face = listOf("Isabel"),
         voice = listOf(PollyNeuralVoice("Olivia"))
 
     ),
     Persona(
-        name = "Demon",
-        desc = "rude coach",
-        intro = "Cut the drama and close your eyes",
+        name = "Emil",
+        desc = "mean terapeut",
+        intro = "What is your problem?",
         face = listOf("Alex", "default"),
         voice = listOf(PollyNeuralVoice("Matthew"))
     ),
