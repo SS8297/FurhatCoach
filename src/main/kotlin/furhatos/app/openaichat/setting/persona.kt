@@ -7,6 +7,7 @@ import furhatos.flow.kotlin.voice.AcapelaVoice
 import furhatos.flow.kotlin.voice.PollyNeuralVoice
 import furhatos.flow.kotlin.voice.Voice
 import furhatos.nlu.SimpleIntent
+import furhatos.util.Language
 
 class Persona(
     val name: String,
@@ -15,7 +16,9 @@ class Persona(
     val desc: String,
     val face: List<String>,
     val mask: String = "adult",
-    val voice: List<Voice>
+    val voice: List<Voice>,
+    val language: String,
+    val rate: Voice.ProsodyRate
 ) {
     val fullDesc = "$name, the $desc"
 
@@ -46,23 +49,28 @@ val hostPersona = Persona(
     name = "Host",
     desc = "host",
     face = listOf("Titan"),
-    voice = listOf(PollyNeuralVoice("Sonia"))
+    voice = listOf(PollyNeuralVoice("Sonia")),
+    language = Language.ENGLISH_US.toString(),
+    rate = Voice.ProsodyRate.SLOW
 )
 
 val personas = listOf(
     Persona(
         name = "Hanna",
-        desc = "kind terapeut",
-        intro = "What's your name?",
+        desc = "kind therapist",
+        intro = "What's your name and how are you feeling today?",
         face = listOf("Isabel"),
-        voice = listOf(PollyNeuralVoice("Olivia"))
-
+        voice = listOf(PollyNeuralVoice("Olivia")),
+        language = Language.ENGLISH_GB.toString(),
+        rate = Voice.ProsodyRate.SLOW
     ),
     Persona(
         name = "Emil",
-        desc = "mean terapeut",
+        desc = "mean therapist",
         intro = "What is your problem?",
         face = listOf("Alex", "default"),
-        voice = listOf(PollyNeuralVoice("Matthew"))
+        voice = listOf(PollyNeuralVoice("Matthew")),
+        language = Language.ENGLISH_GB.toString(),
+        rate = Voice.ProsodyRate.FAST
     ),
 )

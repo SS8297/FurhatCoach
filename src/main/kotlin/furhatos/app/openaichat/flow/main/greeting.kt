@@ -7,23 +7,13 @@ import furhatos.app.openaichat.setting.hostPersona
 import furhatos.app.openaichat.setting.personas
 import furhatos.flow.kotlin.*
 import furhatos.records.Location
+import java.util.*
 
 val Greeting = state(Parent) {
 
     onEntry {
         furhat.attend(users.userClosestToPosition(Location(0.0, 0.0, 0.5)))
         askForAnything("Hi there")
-        //furhat.say("I was recently introduced to the A I GPT3 from open A I.")
-        //if (furhat.askYN("Have you heard about GPT3?") == true) {
-        //    furhat.say("Good, let's try it out")
-        //} else {
-        //    furhat.say("GPT3 is a so-called language model, developed by OpenAI. It can be used to generate any text, for example a conversation, based on the description of a character. ")
-        //    if (furhat.askYN("Are you ready to try it out?") == true) {
-        //    } else {
-        //        furhat.say("Okay, maybe another time then")
-        //        goto(Idle)
-        //    }
-        //}
         goto(ChoosePersona())
     }
 }
@@ -41,7 +31,7 @@ fun ChoosePersona() = state(Parent) {
     println("Selected Personas after filter: ${selectedPersonas.map { it.name }}")
 
     fun FlowControlRunner.presentPersonas() {
-        furhat.say("You can choose to speak to one of these characters:")
+        furhat.say("You can choose to speak to one of these therapist:")
         for (persona in selectedPersonas) {
             //activate(persona)
             delay(100)
@@ -56,18 +46,28 @@ fun ChoosePersona() = state(Parent) {
     }
 
     onReentry {
-        furhat.ask("Would you prefer a kind terapeut or a more direct one?")
+        furhat.ask("Would you prefer a kind one or the more direct one?")
     }
 
-    onResponse("kind terapeut", "Hanna", "the kind one") {
-        furhat.say("Okay, let's proceed with Hanna.")
-        currentPersona = personas.find { it.name == "Hanna" } ?: hostPersona
-        goto(MainChat)
-    }
-
-    onResponse("direct terapeut", "Emil", "the direct one") {
-        furhat.say("Okay, let's proceed with Emil.")
-        currentPersona = personas.find { it.name == "Emil" } ?: hostPersona
-        goto(MainChat)
+    onResponse {
+        val response = it.text.lowercase(Locale.getDefault())
+        val kindKeywords = listOf("kind", "gentle", "compassionate", "kind therapist", "kind one", "the kind one")
+        val directKeywords = listOf("direct", "straightforward", "blunt", "direct therapist", "direct one", "the direct one")
+        when {
+            kindKeywords.any { keyword -> response.contains(keyword) } -> {
+                furhat.say("Okay, let's proceed with Hanna.")
+                currentPersona = personas.find { it.name == "Hanna" } ?: hostPersona
+                goto(MainChat)
+            }
+            directKeywords.any { keyword -> response.contains(keyword) } -> {
+                furhat.say("Okay, let's proceed with Emil.")
+                currentPersona = personas.find { it.name == "Emil" } ?: hostPersona
+                goto(MainChat)
+            }
+            else -> {
+                furhat.say("I'm not sure what you mean.")
+                reentry()
+            }
+        }
     }
 }
