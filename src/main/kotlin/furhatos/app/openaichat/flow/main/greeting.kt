@@ -44,9 +44,8 @@ fun ChoosePersona() = state(Parent) {
         furhat.say("You can choose to speak to one of these characters:")
         for (persona in selectedPersonas) {
             //activate(persona)
-            delay(300)
+            delay(100)
             furhat.say(persona.fullDesc)
-            delay(300)
         }
         //activate(hostPersona)
         reentry()
@@ -60,13 +59,13 @@ fun ChoosePersona() = state(Parent) {
         furhat.ask("Would you prefer a kind terapeut or a more direct one?")
     }
 
-    onResponse("kind terapeut", "Hanna") {
+    onResponse("kind terapeut", "Hanna", "the kind one") {
         furhat.say("Okay, let's proceed with Hanna.")
         currentPersona = personas.find { it.name == "Hanna" } ?: hostPersona
         goto(MainChat)
     }
 
-    onResponse("direct terapeut", "Emil") {
+    onResponse("direct terapeut", "Emil", "the direct one") {
         furhat.say("Okay, let's proceed with Emil.")
         currentPersona = personas.find { it.name == "Emil" } ?: hostPersona
         goto(MainChat)

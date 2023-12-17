@@ -46,14 +46,14 @@ val hostPersona = Persona(
     name = "Host",
     desc = "host",
     face = listOf("Titan"),
-    voice = listOf(PollyNeuralVoice("Kimberly"))
+    voice = listOf(PollyNeuralVoice("Sonia"))
 )
 
 val personas = listOf(
     Persona(
         name = "Hanna",
         desc = "kind terapeut",
-        intro = "Hello, how are you feeling today?",
+        intro = "What's your name?",
         face = listOf("Isabel"),
         voice = listOf(PollyNeuralVoice("Olivia"))
 
