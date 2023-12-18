@@ -7,6 +7,8 @@ import furhatos.flow.kotlin.voice.AcapelaVoice
 import furhatos.flow.kotlin.voice.PollyNeuralVoice
 import furhatos.flow.kotlin.voice.Voice
 import furhatos.nlu.SimpleIntent
+import furhatos.util.Gender
+import furhatos.util.Language
 
 class Persona(
     val name: String,
@@ -15,7 +17,7 @@ class Persona(
     val desc: String,
     val face: List<String>,
     val mask: String = "adult",
-    val voice: List<Voice>
+    val voice: List<Voice>,
 ) {
     val fullDesc = "$name, the $desc"
 
@@ -27,9 +29,11 @@ class Persona(
 }
 
 fun FlowControlRunner.activate(persona: Persona) {
+    val personaName = persona.name
     for (voice in persona.voice) {
         if (voice.isAvailable) {
             furhat.voice = voice
+            println(voice.toString())
             break
         }
     }
@@ -46,23 +50,22 @@ val hostPersona = Persona(
     name = "Host",
     desc = "host",
     face = listOf("Titan"),
-    voice = listOf(PollyNeuralVoice("Kimberly"))
+    voice = listOf(PollyNeuralVoice("Sonia")),
 )
 
 val personas = listOf(
     Persona(
-        name = "Angel",
-        desc = "good coach",
-        intro = "As we begin, gently close your eyes and let the quiet settle within. Embrace this moment of stillness",
+        name = "Hanna",
+        desc = "kind therapist",
+        intro = "What's your name and how are you feeling today?",
         face = listOf("Isabel"),
-        voice = listOf(PollyNeuralVoice("Olivia"))
-
+        voice = listOf(PollyNeuralVoice("Olivia")),
     ),
     Persona(
-        name = "Demon",
-        desc = "rude coach",
-        intro = "Cut the drama and close your eyes",
+        name = "Emil",
+        desc = "mean therapist",
+        intro = "What is your problem?",
         face = listOf("Alex", "default"),
-        voice = listOf(PollyNeuralVoice("Matthew"))
+        voice = listOf(PollyNeuralVoice("Matthew")),
     ),
 )

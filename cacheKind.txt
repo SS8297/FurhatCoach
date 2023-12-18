@@ -7,4 +7,4 @@ SURPRISE_Angel::I'm here to listen. Tell me more about how you're feeling.
 NEUTRAL_Angel::I'm here to listen. How can I help you in this moment? Is there something specific that's on your mind?
 EYES_OPENED_Angel::No problem. Can we focus on your breathing for a few moments and see if that helps bring some clarity? I invite you to close your eyes and slowly begin to deepen your breaths.
 EYES_CLOSED_Angel::As you deepen your breaths, I encourage you to focus your attention on the calm and peaceful space within you. Allow your body to become relaxed as you take in each breath.
-Error: Connection refused (Connection refused)_Angel::No problem! If there's anything else I can do for you, please don't hesitate to let me know. Take care and stay strong!
+Error: Connection refused (Connection refused)_Angel::If there's anything else I can do for you, please don't hesitate to let me know. Take care and stay strong!
