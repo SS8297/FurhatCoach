@@ -7,6 +7,7 @@ import furhatos.flow.kotlin.voice.AcapelaVoice
 import furhatos.flow.kotlin.voice.PollyNeuralVoice
 import furhatos.flow.kotlin.voice.Voice
 import furhatos.nlu.SimpleIntent
+import furhatos.util.Gender
 import furhatos.util.Language
 
 class Persona(
@@ -17,8 +18,6 @@ class Persona(
     val face: List<String>,
     val mask: String = "adult",
     val voice: List<Voice>,
-    val language: String,
-    val rate: Voice.ProsodyRate
 ) {
     val fullDesc = "$name, the $desc"
 
@@ -30,9 +29,11 @@ class Persona(
 }
 
 fun FlowControlRunner.activate(persona: Persona) {
+    val personaName = persona.name
     for (voice in persona.voice) {
         if (voice.isAvailable) {
             furhat.voice = voice
+            println(voice.toString())
             break
         }
     }
@@ -50,8 +51,6 @@ val hostPersona = Persona(
     desc = "host",
     face = listOf("Titan"),
     voice = listOf(PollyNeuralVoice("Sonia")),
-    language = Language.ENGLISH_US.toString(),
-    rate = Voice.ProsodyRate.SLOW
 )
 
 val personas = listOf(
@@ -61,8 +60,6 @@ val personas = listOf(
         intro = "What's your name and how are you feeling today?",
         face = listOf("Isabel"),
         voice = listOf(PollyNeuralVoice("Olivia")),
-        language = Language.ENGLISH_GB.toString(),
-        rate = Voice.ProsodyRate.SLOW
     ),
     Persona(
         name = "Emil",
@@ -70,7 +67,5 @@ val personas = listOf(
         intro = "What is your problem?",
         face = listOf("Alex", "default"),
         voice = listOf(PollyNeuralVoice("Matthew")),
-        language = Language.ENGLISH_GB.toString(),
-        rate = Voice.ProsodyRate.FAST
     ),
 )

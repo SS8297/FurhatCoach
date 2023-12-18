@@ -33,7 +33,6 @@ fun ChoosePersona() = state(Parent) {
     fun FlowControlRunner.presentPersonas() {
         furhat.say("You can choose to speak to one of these therapist:")
         for (persona in selectedPersonas) {
-            //activate(persona)
             delay(100)
             furhat.say(persona.fullDesc)
         }
@@ -51,17 +50,19 @@ fun ChoosePersona() = state(Parent) {
 
     onResponse {
         val response = it.text.lowercase(Locale.getDefault())
-        val kindKeywords = listOf("kind", "gentle", "compassionate", "kind therapist", "kind one", "the kind one")
-        val directKeywords = listOf("direct", "straightforward", "blunt", "direct therapist", "direct one", "the direct one")
+        val kindKeywords = listOf("Hanna", "kind", "gentle", "compassionate", "kind therapist", "kind one", "the kind one")
+        val directKeywords = listOf("Emil", "direct", "straightforward", "blunt", "direct therapist", "direct one", "the direct one")
         when {
             kindKeywords.any { keyword -> response.contains(keyword) } -> {
                 furhat.say("Okay, let's proceed with Hanna.")
                 currentPersona = personas.find { it.name == "Hanna" } ?: hostPersona
+                activate(currentPersona)
                 goto(MainChat)
             }
             directKeywords.any { keyword -> response.contains(keyword) } -> {
                 furhat.say("Okay, let's proceed with Emil.")
                 currentPersona = personas.find { it.name == "Emil" } ?: hostPersona
+                activate(currentPersona)
                 goto(MainChat)
             }
             else -> {

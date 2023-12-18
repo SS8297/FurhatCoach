@@ -4,39 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cce61133-3036-47ae-8407-7676846b581d" name="Changes" comment="Finetune terapeut answers for openai">
+    <list default="true" id="cce61133-3036-47ae-8407-7676846b581d" name="Changes" comment="Finetune therapist answers for openai">
       <change beforePath="$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.9.4/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.9.4/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1$2.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1$3.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1$5.class" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$ChoosePersona$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$Greeting$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$Greeting$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$Greeting$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt$Greeting$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/GreetingKt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1$5.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$AfterChat$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$2.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$3$1$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$3$1.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$3.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$4.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1$5.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt$MainChat$1.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/ChatKt.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/OpenAI.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/OpenAI.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/OpenaiKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/flow/chatbot/OpenaiKt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/setting/Persona.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/setting/Persona.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/setting/PersonaKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/build/classes/kotlin/main/furhatos/app/openaichat/setting/PersonaKt.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/inputs/source-to-output.tab.values.at" afterDir="false" />
@@ -70,12 +52,10 @@
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.s" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab.values.s" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab_i" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/caches-jvm/lookups/lookups.tab_i" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/last-build.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/cacheable/last-build.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/classpath-snapshot/shrunk-classpath-snapshot.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/build/kotlin/compileKotlin/local-state/build-history.bin" beforeDir="false" afterPath="$PROJECT_DIR$/build/kotlin/compileKotlin/local-state/build-history.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/chatbot/openai.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/chatbot/openai.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/main/greeting.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/flow/main/greeting.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/setting/persona.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/kotlin/furhatos/app/openaichat/setting/persona.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/python/script.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/python/script.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +227,15 @@
       <option name="project" value="LOCAL" />
       <updated>1702837175942</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Finetune therapist answers for openai">
+      <option name="closed" value="true" />
+      <created>1702845770922</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1702845770922</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
@@ -257,7 +245,8 @@
     <MESSAGE value="finestunes level of evilness" />
     <MESSAGE value="Redo logic for two different terapeuts" />
     <MESSAGE value="Finetune terapeut answers for openai" />
-    <option name="LAST_COMMIT_MESSAGE" value="Finetune terapeut answers for openai" />
+    <MESSAGE value="Finetune therapist answers for openai" />
+    <option name="LAST_COMMIT_MESSAGE" value="Finetune therapist answers for openai" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
