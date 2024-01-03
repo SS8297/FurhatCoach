@@ -6,7 +6,7 @@ from feat.utils import FEAT_EMOTION_COLUMNS
 import math
 
 
-detector = Detector(face_model="retinaface", au_model = "xgb", emotion_model="resmasknet")
+detector = Detector(face_model="retinaface", landmark_model= "pfld", au_model = "xgb", emotion_model="resmasknet")
 
 
 def eye_aspect_ratio(eye):
