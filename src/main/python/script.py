@@ -24,10 +24,20 @@ server.listen(1)
 last_emotion_index = -1
 last_time = 0
 
-emotions = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral", "eyes_opened", "eyes_closed"]
+# emotions = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral", "eyes_opened", "eyes_closed"]
 # Emotion detection function (to be implemented)
 
-detector = Detector(face_model="retinaface", landmark_model= "pfld", au_model = "xgb", emotion_model="resmasknet")
+device = (
+    "cuda"
+    if torch.cuda.is_available()
+    else "cpu"
+)
+try:
+    emo_model = torch.load("acc_96.8", map_location=device)
+except:
+    print("Download the model and put in the src/main/python folder: https://drive.google.com/file/d/1PXsMlF6bzvowkAaSE14UWa1F5fO7E8nu/view?usp=sharing")
+    exit()
+detector = Detector(face_model="retinaface", landmark_model= "pfld")
 
 def extract_features(landmarks, face):
     features = [math.dist(landmarks[33], landmark) for landmark in landmarks] + [face[2] - face[0], face[3] - face[1]]
@@ -83,7 +93,7 @@ def detect_eyes(landmarks, img, threshold):
     else:
          return False
 
-def proc_image(img, detector):
+def proc_image(img, detector, emo_model):
     detected_faces = detector.detect_faces(img)
     faces_detected = len(detected_faces[0])
     if ( faces_detected < 1):
@@ -101,7 +111,6 @@ def proc_image(img, detector):
         else "cpu"
     )
 
-    emo_model = torch.load("acc_96.8", map_location=device)
     features = [torch.tensor(np.array(extract_features(*object)).astype(np.float32)).to(device) for object in zip(detected_landmarks[0], detected_faces[0])]
     detected_emotions = [emo_model(facefeat).softmax(dim=0).argmax(dim=0).to("cpu") for facefeat in features]
     assert len(detected_emotions) == faces_detected, "Number of faces and emotions are mismatched!"
@@ -118,7 +127,6 @@ def proc_image(img, detector):
             print(FEAT_EMOTION_COLUMNS[label])
         else:
              print("eyes_open")
-
 
         #JSON
         # if (not is_eye_open):
@@ -147,7 +155,7 @@ while True:
                     print("Can't receive frame (steam end?).Exiting ...")
                     break
 
-                emotion = proc_image(frame, detector)
+                emotion = proc_image(frame, detector, emo_model)
                 response = json.dumps({'patientState': emotion})
                 print("Sending response:", response)
                 conn.sendall(response.encode('utf-8') + b"\n")
