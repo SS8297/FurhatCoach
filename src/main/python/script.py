@@ -8,8 +8,11 @@ import numpy as np
 import math
 from feat import Detector
 from feat.utils import FEAT_EMOTION_COLUMNS
-import torch
 from PIL import Image
+import torch
+from torch import nn
+
+CLASS_LABELS = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
 # Set up a socket server to communicate with the Kotlin application
 HOST, PORT = 'localhost', 9999
@@ -26,6 +29,31 @@ emotions = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral", "
 
 detector = Detector(face_model="retinaface", landmark_model= "pfld", au_model = "xgb", emotion_model="resmasknet")
 
+def extract_features(landmarks, face):
+    features = [math.dist(landmarks[33], landmark) for landmark in landmarks] + [face[2] - face[0], face[3] - face[1]]
+    return features
+
+class MyNeuralNetwork(nn.Module):
+    def __init__(self, layers, dropout):
+        super().__init__()
+        self.net = nn.Sequential(
+            nn.Linear(70, layers[0]),
+            nn.LeakyReLU(),
+            nn.Dropout(p = dropout[0]),
+            nn.Linear(layers[0], layers[1]),
+            nn.LeakyReLU(),
+            nn.Dropout(p = dropout[1]),
+            nn.Linear(layers[1], layers[2]),
+            nn.LeakyReLU(),
+            nn.Dropout(p = dropout[2]),
+            nn.Linear(layers[2], layers[3]),
+            nn.LeakyReLU(),
+            nn.Dropout(p = dropout[3]),
+            nn.Linear(layers[3], 7),
+        )
+    
+    def forward(self, inputs):
+        return self.net(inputs)
 
 def eye_aspect_ratio(eye):
 
@@ -54,7 +82,7 @@ def detect_eyes(landmarks, img, threshold):
          return True
     else:
          return False
-    
+
 def proc_image(img, detector):
     detected_faces = detector.detect_faces(img)
     faces_detected = len(detected_faces[0])
@@ -67,19 +95,22 @@ def proc_image(img, detector):
     is_eye_open = [detect_eyes(face, img, 0.20) for face in detected_landmarks[0]]
     eye_dict = {True: "eyes open", False: "eyes closed"}
 
-    detected_emotions = detector.detect_emotions(img, detected_faces, detected_landmarks)
-    assert len(detected_emotions[0]) == faces_detected, "Number of faces and emotions are mismatched!"
+    device = (
+        "cuda"
+        if torch.cuda.is_available()
+        else "cpu"
+    )
 
-    em = detected_emotions[0]
-    em_labels = em.argmax(axis=1)
+    emo_model = torch.load("acc_96.8", map_location=device)
+    features = [torch.tensor(np.array(extract_features(*object)).astype(np.float32)).to(device) for object in zip(detected_landmarks[0], detected_faces[0])]
+    detected_emotions = [emo_model(facefeat).softmax(dim=0).argmax(dim=0).to("cpu") for facefeat in features]
+    assert len(detected_emotions) == faces_detected, "Number of faces and emotions are mismatched!"
 
-
-
-    for face, has_open_eyes, label in zip(detected_faces[0], (eye_dict[eyes] for eyes in is_eye_open), em_labels):
+    for face, has_open_eyes, label in zip(detected_faces[0], (eye_dict[eyes] for eyes in is_eye_open), detected_emotions):
         (x0, y0, x1, y1, p) = face
         res_scale = img.shape[0]/704
         cv.rectangle(img, (int(x0), int(y0)), (int(x1), int(y1)), color = (0, 0, 255), thickness = 3)
-        cv.putText(img, FEAT_EMOTION_COLUMNS[label], (int(x0)-10, int(y1+25*res_scale*1.5)), fontFace = 0, color = (0, 255, 0), thickness = 2, fontScale = res_scale)
+        cv.putText(img, CLASS_LABELS[label], (int(x0)-10, int(y1+25*res_scale*1.5)), fontFace = 0, color = (0, 255, 0), thickness = 2, fontScale = res_scale)
         cv.putText(img, f"{faces_detected } face(s) found", (0, int(25*res_scale*1.5)), fontFace = 0, color = (0, 255, 0), thickness = 2, fontScale = res_scale)
         cv.putText(img, has_open_eyes, (int(x0)-10, int(y0)-10), fontFace = 0, color = (0, 255, 0), thickness = 2, fontScale = res_scale)
         cv.imshow('frame', img)
@@ -95,6 +126,10 @@ def proc_image(img, detector):
         # else:
         #      print("{\"patientState\" : \"eyes_open\"}")
 
+cap = cv.VideoCapture(0)
+if not cap.isOpened():
+    print("Cannot open camera")
+    exit()
 
 while True:
     try:
@@ -106,11 +141,19 @@ while True:
                 if not data:
                     break
 
-                emotion = detect_emotion()
+                ret, frame = cap.read()
+
+                if not ret:
+                    print("Can't receive frame (steam end?).Exiting ...")
+                    break
+
+                emotion = proc_image(frame, detector)
                 response = json.dumps({'patientState': emotion})
                 print("Sending response:", response)
                 conn.sendall(response.encode('utf-8') + b"\n")
                 conn.flush()
+            cap.release()
+            cv.destroyAllWindows()
         finally:
             conn.close()
     except Exception as e:
