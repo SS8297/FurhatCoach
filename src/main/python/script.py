@@ -103,7 +103,7 @@ def proc_image(img, detector, emo_model):
     assert len(detected_landmarks[0]) == faces_detected, "Number of faces and landsmarks are mismatched!"
 
     is_eye_open = [detect_eyes(face, img, 0.20) for face in detected_landmarks[0]]
-    eye_dict = {True: "eyes open", False: "eyes closed"}
+    eye_dict = {True: "eyes_opened", False: "eyes_closed"}
 
     device = (
         "cuda"
