@@ -7,14 +7,13 @@ import furhatos.app.openaichat.setting.Persona
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
-val serviceKey = "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"
+val serviceKey = "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"
 
 class OpenAI(val description: String, val userName: String, val agentName: String) {
 
     private var service = OpenAiService(serviceKey)
-    private val responseCache = ResponseCache()
     private var emotionalStateHistory: MutableList<String> = mutableListOf()
-    private final val historySize = 5
+    private val historySize = 10
 
     var temperature = 0.5 // Higher values means the model will take more risks. Try 0.9 for more creative applications, and 0 (argmax sampling) for ones with a well-defined answer.
     var maxTokens = 80 // Length of output generated. 1 token is on average ~4 characters or 0.75 words for English text
@@ -94,7 +93,7 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
             }
         } else {
             statePrompt = when (state) {
-                "ANGRY" -> "The patient is angry. Provide a comforting (briefly) response to help calm them down."
+                "ANGRY" -> "The patient is angry. Provide a comforting (brief) response to help calm them down."
                 "DISGUST" -> "The patient feels disgusted. Offer a reassuring comment to help them cope (briefly)."
                 "FEAR" -> "The patient is scared. Generate a supportive response (brief) to alleviate their fear."
                 "HAPPY" -> "The patient is happy. Give a (brief) response that nurtures their positive mood."
@@ -199,7 +198,7 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
             .presencePenalty(presencePenalty)
             .prompt(prompt)
             .echo(false)
-            .model("text-davinci-003")
+            .model("gpt-3.5-turbo-instruct")
             .build()
 
         try {

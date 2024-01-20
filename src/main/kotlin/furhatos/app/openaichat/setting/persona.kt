@@ -49,8 +49,8 @@ fun FlowControlRunner.activate(persona: Persona) {
 val hostPersona = Persona(
     name = "Host",
     desc = "host",
-    face = listOf("Titan"),
-    voice = listOf(PollyNeuralVoice("Sonia")),
+    face = listOf("Isabel"),
+    voice = listOf(PollyNeuralVoice("Kandra")),
 )
 
 val personas = listOf(
@@ -58,14 +58,14 @@ val personas = listOf(
         name = "Hanna",
         desc = "kind therapist",
         intro = "What's your name and how are you feeling today?",
-        face = listOf("Isabel"),
-        voice = listOf(PollyNeuralVoice("Olivia")),
+        face = listOf("Patricia"),
+        voice = listOf(PollyNeuralVoice("Emma")),
     ),
     Persona(
         name = "Emil",
         desc = "mean therapist",
         intro = "What is your problem?",
-        face = listOf("Alex", "default"),
-        voice = listOf(PollyNeuralVoice("Matthew")),
+        face = listOf("Omar"),
+        voice = listOf(PollyNeuralVoice("Brian-Neural")),
     ),
 )

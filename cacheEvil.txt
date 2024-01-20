@@ -1,9 +1,0 @@
-EYES_OPENED_Demon::Good. Now let's get to the serious business of focusing your mind and calming your breath.
-ANGRY_Demon::That's right, now feel the power of your anger. Feel it coursing through your veins and letting out a primal roar. Embrace the feeling and let it take control as you unleash your frustrations.
-DISGUST_Demon::You're here to take charge of your emotions, so own it and feel the power
-FEAR_Demon::Stop being a little scared bitch. Face you fears
-SURPRISE_Demon::Glad to see you taking the initiative!
-NEUTRAL_Demon::Are you hiding your emotions?
-SAD_Demon::Understand that sadness is a part of life and sometimes it is necessary to experience it fully in order to move on.
-HAPPY_Demon::Please explain why you are faking being happy.
-EYES_CLOSED_Demon::Be honest with me. Do you even have problems?

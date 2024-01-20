@@ -12,6 +12,10 @@ from PIL import Image
 import torch
 from torch import nn
 
+import torchvision
+print(torchvision.__version__)
+
+
 CLASS_LABELS = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
 # Set up a socket server to communicate with the Kotlin application
@@ -24,9 +28,6 @@ server.listen(1)
 last_emotion_index = -1
 last_time = 0
 
-# emotions = ["angry", "disgust", "fear", "happy", "sad", "surprise", "neutral", "eyes_opened", "eyes_closed"]
-# Emotion detection function (to be implemented)
-
 device = (
     "cuda"
     if torch.cuda.is_available()
@@ -34,7 +35,8 @@ device = (
 )
 try:
     emo_model = torch.load("acc_96.8", map_location=device)
-except:
+except Exception as e:
+    print(f"Error loading model: {e}")
     print("Download the model and put in the src/main/python folder: https://drive.google.com/file/d/1PXsMlF6bzvowkAaSE14UWa1F5fO7E8nu/view?usp=sharing")
     exit()
 detector = Detector(face_model="retinaface", landmark_model= "pfld")
