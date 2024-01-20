@@ -2,12 +2,11 @@ package furhatos.app.openaichat.flow.chatbot
 
 import com.theokanning.openai.completion.CompletionRequest
 import com.theokanning.openai.service.OpenAiService
-import furhatos.app.openaichat.ResponseCache
 import furhatos.app.openaichat.setting.Persona
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
-val serviceKey = "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"
+val serviceKey = "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"
 
 class OpenAI(val description: String, val userName: String, val agentName: String) {
 
@@ -206,9 +205,9 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
             var response = completion.choices.first().text.trim()
             println("Raw response from OpenAI: $response")
 
-            if (response.startsWith("$agentName:")) {
+            if (response.startsWith("${persona.name}:") || response.startsWith("$agentName:" )) {
                 response = response.removePrefix("$agentName:").trim()
-                println("Response after removing agentName: $response")
+                println("Response after removing agentName or personaName: $response")
             }
 
             if (response.startsWith(".") || response.startsWith("?") || response.startsWith("!") ) {

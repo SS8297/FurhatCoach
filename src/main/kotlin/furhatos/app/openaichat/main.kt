@@ -13,8 +13,6 @@ class OpenaichatSkill : Skill() {
 }
 
 fun main(args: Array<String>) {
-    // val pythonScriptPath = "src/main/python/script.py"
-
     LogisticMultiIntentClassifier.setAsDefault()
     val emotionDetector = EmotionDetector()
     val currentEmotion = emotionDetector.getEmotion()

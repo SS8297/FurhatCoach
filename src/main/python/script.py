@@ -1,14 +1,10 @@
 import socket
 import json
-import time
-# Import OpenCV, PyFeat, and other necessary libraries here
-import os
 import cv2 as cv
 import numpy as np
 import math
 from feat import Detector
 from feat.utils import FEAT_EMOTION_COLUMNS
-from PIL import Image
 import torch
 from torch import nn
 
@@ -33,17 +29,6 @@ device = (
     if torch.cuda.is_available()
     else "cpu"
 )
-try:
-    emo_model = torch.load("acc_96.8", map_location=device)
-except Exception as e:
-    print(f"Error loading model: {e}")
-    print("Download the model and put in the src/main/python folder: https://drive.google.com/file/d/1PXsMlF6bzvowkAaSE14UWa1F5fO7E8nu/view?usp=sharing")
-    exit()
-detector = Detector(face_model="retinaface", landmark_model= "pfld")
-
-def extract_features(landmarks, face):
-    features = [math.dist(landmarks[33], landmark) for landmark in landmarks] + [face[2] - face[0], face[3] - face[1]]
-    return features
 
 class MyNeuralNetwork(nn.Module):
     def __init__(self, layers, dropout):
@@ -63,9 +48,21 @@ class MyNeuralNetwork(nn.Module):
             nn.Dropout(p = dropout[3]),
             nn.Linear(layers[3], 7),
         )
-    
+
     def forward(self, inputs):
         return self.net(inputs)
+
+try:
+    emo_model = torch.load("acc_96.8", map_location=device)
+except Exception as e:
+    print(f"Error loading model: {e}")
+    print("Download the model and put in the src/main/python folder: https://drive.google.com/file/d/1PXsMlF6bzvowkAaSE14UWa1F5fO7E8nu/view?usp=sharing")
+    exit()
+detector = Detector(face_model="retinaface", landmark_model= "pfld")
+
+def extract_features(landmarks, face):
+    features = [math.dist(landmarks[33], landmark) for landmark in landmarks] + [face[2] - face[0], face[3] - face[1]]
+    return features
 
 def eye_aspect_ratio(eye):
 
@@ -124,17 +121,10 @@ def proc_image(img, detector, emo_model):
         cv.putText(img, CLASS_LABELS[label], (int(x0)-10, int(y1+25*res_scale*1.5)), fontFace = 0, color = (0, 255, 0), thickness = 2, fontScale = res_scale)
         cv.putText(img, f"{faces_detected } face(s) found", (0, int(25*res_scale*1.5)), fontFace = 0, color = (0, 255, 0), thickness = 2, fontScale = res_scale)
         cv.putText(img, has_open_eyes, (int(x0)-10, int(y0)-10), fontFace = 0, color = (0, 255, 0), thickness = 2, fontScale = res_scale)
-        cv.imshow('frame', img)
-        if (not is_eye_open):
-            print(FEAT_EMOTION_COLUMNS[label])
-        else:
-             print("eyes_open")
 
-        #JSON
-        # if (not is_eye_open):
-        #     print(f"{{\"patientState\" : \"{FEAT_EMOTION_COLUMNS[label]}\"}}")
-        # else:
-        #      print("{\"patientState\" : \"eyes_open\"}")
+        cv.imshow('frame', img)
+
+        return FEAT_EMOTION_COLUMNS[label]
 
 cap = cv.VideoCapture(0)
 if not cap.isOpened():
