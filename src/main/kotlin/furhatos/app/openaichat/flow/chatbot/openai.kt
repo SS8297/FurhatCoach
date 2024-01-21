@@ -6,7 +6,7 @@ import furhatos.app.openaichat.setting.Persona
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
-val serviceKey = "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"
+val serviceKey = "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"
 
 class OpenAI(val description: String, val userName: String, val agentName: String) {
 
@@ -205,7 +205,7 @@ class OpenAI(val description: String, val userName: String, val agentName: Strin
             var response = completion.choices.first().text.trim()
             println("Raw response from OpenAI: $response")
 
-            if (response.startsWith("${persona.name}:") || response.startsWith("$agentName:" )) {
+            if (response.startsWith(persona.name) || response.startsWith(agentName)) {
                 response = response.removePrefix("$agentName:").trim()
                 println("Response after removing agentName or personaName: $response")
             }

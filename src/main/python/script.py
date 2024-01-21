@@ -8,10 +8,6 @@ from feat.utils import FEAT_EMOTION_COLUMNS
 import torch
 from torch import nn
 
-import torchvision
-print(torchvision.__version__)
-
-
 CLASS_LABELS = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
 
 # Set up a socket server to communicate with the Kotlin application
@@ -19,10 +15,6 @@ HOST, PORT = 'localhost', 9999
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.bind((HOST, PORT))
 server.listen(1)
-
-# Emotion cache and timestamp
-last_emotion_index = -1
-last_time = 0
 
 device = (
     "cuda"
