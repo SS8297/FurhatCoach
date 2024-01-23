@@ -8,9 +8,14 @@ from feat.utils import FEAT_EMOTION_COLUMNS
 import torch
 from torch import nn
 import threading
+import time
+
+running = True
+last_emotion = None
 
 HOST, PORT = 'localhost', 9999
 CLASS_LABELS = ['angry', 'disgust', 'fear', 'happy', 'neutral', 'sad', 'surprise']
+UPDATE_INTERVAL = 7
 
 device = "cuda" if torch.cuda.is_available() else "cpu"
 
@@ -61,23 +66,27 @@ def proc_image(img, detector, emo_model):
         cv.putText(img, CLASS_LABELS[label], (int(x0)-10, int(y1+30)), cv.FONT_HERSHEY_SIMPLEX, 1, (0, 255, 0), 2)
 
     cv.imshow('frame', img)
-    return FEAT_EMOTION_COLUMNS[detected_emotions[0]] if detected_emotions else "no face"
+    emotion = FEAT_EMOTION_COLUMNS[detected_emotions[0]] if detected_emotions else "no face"
+    return emotion
 
 def camera_thread(cap, detector, emo_model):
-    last_emotion = None
-    while True:
+    global running, last_emotion
+    last_update_time = 0
+    while running:
         ret, frame = cap.read()
         if not ret:
             print("Failed to grab frame")
             break
-
-        try:
-            new_emotion = proc_image(frame, detector, emo_model)
-            if new_emotion != last_emotion:
-                print("Detected emotion:", new_emotion)
-                last_emotion = new_emotion
-        except Exception as e:
-            print(f"Error processing image: {e}")
+        current_time = time.time()
+        if current_time - last_update_time >= UPDATE_INTERVAL:
+            try:
+                new_emotion = proc_image(frame, detector, emo_model)
+                if new_emotion != last_emotion:
+                    last_emotion = new_emotion
+                    print(f"Emotion: {last_emotion}")
+                    last_update_time = current_time
+            except Exception as e:
+                print(f"Error processing image: {e}")
 
         cv.imshow('frame', frame)
         if cv.waitKey(1) & 0xFF == ord('q'):
@@ -86,9 +95,44 @@ def camera_thread(cap, detector, emo_model):
     cap.release()
     cv.destroyAllWindows()
 
+def socket_server_thread():
+    global running, last_emotion
+    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    server.settimeout(10)
+    server.bind((HOST, PORT))
+    server.listen(1)
+
+    print("Socket server started")
+
+    while running:
+        try:
+            conn, addr = server.accept()
+            print("Client connected")
+            while running:
+                data = conn.recv(1024)
+                if not data:
+                    break
+
+                emotion = last_emotion if last_emotion is not None else "no data"
+                # Dummy response for testing
+                response = json.dumps({'patientState': emotion})
+                conn.sendall(response.encode('utf-8') + b"\n")
+
+            conn.close()
+            print("Client disconnected")
+        except socket.timeout:
+            print("Socket server timed out waiting for a connection")
+        except KeyboardInterrupt:
+            print("Shutting down socket server...")
+            running = False
+        except Exception as e:
+            print(f"Socket server error: {e}")
+
+    server.close()
+    print("Socket server stopped")
 
 def main():
-
+    global running
     try:
         emo_model = torch.load("acc_96.8", map_location=device)
     except Exception as e:
@@ -96,43 +140,21 @@ def main():
         return
 
     detector = Detector(face_model="retinaface", landmark_model="pfld")
-
-    # Initialize camera
     cap = cv.VideoCapture(0)
     if not cap.isOpened():
         print("Cannot open camera")
         return
 
-    # Start the camera thread
-    thread = threading.Thread(target=camera_thread, args=(cap, detector, emo_model))
-    thread.start()
+    # Start the threads
+    camera_thread_obj = threading.Thread(target=camera_thread, args=(cap, detector, emo_model))
+    server_thread_obj = threading.Thread(target=socket_server_thread)
 
-    # Start socket server
-    server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    server.bind((HOST, PORT))
-    server.listen(1)
+    camera_thread_obj.start()
+    server_thread_obj.start()
 
-    while True:
-        try:
-            conn, addr = server.accept()
-            while True:
-                data = conn.recv(1024)
-                if not data:
-                    break
-
-                ret, frame = cap.read()
-                if not ret:
-                    print("Can't receive frame. Exiting ...")
-                    break
-
-                emotion = proc_image(frame, detector, emo_model)
-                response = json.dumps({'patientState': emotion})
-                conn.sendall(response.encode('utf-8'))
-
-            conn.close()
-        except Exception as e:
-            print(f"Error: {e}")
-    thread.join()
+    camera_thread_obj.join()
+    server_thread_obj.join()
+    cap.release()
 
 if __name__ == "__main__":
     main()

@@ -29,8 +29,6 @@ def detect_emotion():
 
     last_time = current_time
     return emotion
-    ##return emotion
-    return "sad"
 
 
 while True:
