@@ -12,6 +12,7 @@ class EmotionDetector {
     private val host = "localhost"
     private val _port = 9999
     private val timeout = 5000
+    private val readTimeout = 5000
     private var lastEmotion: String? = null
 
     fun getEmotion(): String {
@@ -21,7 +22,9 @@ class EmotionDetector {
             println("Attempting to connect to the server...")
             Socket().apply {
                 connect(InetSocketAddress(host, _port), timeout)
+                soTimeout = readTimeout
                 println("Connected to the server.")
+
                 getOutputStream().use { output ->
                     PrintWriter(output, true).use { out ->
                         getInputStream().use { input ->

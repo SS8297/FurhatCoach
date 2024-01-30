@@ -114,10 +114,8 @@ def socket_server_thread():
                     break
 
                 emotion = last_emotion if last_emotion is not None else "no data"
-                # Dummy response for testing
                 response = json.dumps({'patientState': emotion})
                 conn.sendall(response.encode('utf-8') + b"\n")
-
             conn.close()
             print("Client disconnected")
         except socket.timeout:

@@ -6,7 +6,7 @@ import furhatos.app.openaichat.setting.Persona
 import furhatos.flow.kotlin.DialogHistory
 import furhatos.flow.kotlin.Furhat
 
-val serviceKey = "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"
+val serviceKey = "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"
 
 class OpenAI(val description: String, val userName: String, val agentName: String) {
 
